@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQRAA - Ouverture du contenu</title>
+    <meta name="description" content="Ouverture du contenu partagé dans l'application IQRAA">
+    
+    <!-- Open Graph pour un meilleur partage -->
+    <meta property="og:title" content="Contenu IQRAA">
+    <meta property="og:description" content="Découvrez ce contenu islamique sur l'application IQRAA">
+    <meta property="og:image" content="https://iqraa.com/assets/logo.png">
+    <meta property="og:type" content="website">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #155225, #2d7a3d);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+        
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .subtitle {
+            opacity: 0.8;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+        
+        .content-preview {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .content-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .content-imam {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            display: none;
+        }
+        
+        .status.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            color: #c8e6c9;
+        }
+        
+        .status.error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            color: #ffcdd2;
+        }
+        
+        .status.warning {
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid rgba(255, 152, 0, 0.5);
+            color: #ffe0b2;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .footer {
+            margin-top: 30px;
+            opacity: 0.6;
+            font-size: 0.8em;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.3em;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo IQRAA -->
+        <div class="logo">
+            🕌
+        </div>
+        
+        <!-- Titre principal -->
+        <h1>IQRAA</h1>
+        <p class="subtitle">Ouverture du contenu partagé...</p>
+        
+        <!-- Aperçu du contenu -->
+        <div class="content-preview" id="contentPreview" style="display: none;">
+            <div class="content-title" id="contentTitle">Titre du contenu</div>
+            <div class="content-imam" id="contentImam">Par Sheikh...</div>
+        </div>
+        
+        <!-- Boutons d'action -->
+        <div class="buttons">
+            <button class="btn btn-primary" id="openAppBtn">
+                <span class="loading" id="loadingSpinner"></span>
+                📱 Ouvrir l'application IQRAA
+            </button>
+            
+            <a href="https://play.google.com/store/apps/details?id=ne.svi.iqraa_mobile" 
+               class="btn btn-secondary" target="_blank">
+                📲 Télécharger l'application
+            </a>
+        </div>
+        
+        <!-- Messages de statut -->
+        <div class="status" id="statusMessage"></div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            Centre IQRAA - Contenus islamiques authentiques
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=ne.svi.iqraa_mobile';
+        
+        // Éléments DOM
+        const openAppBtn = document.getElementById('openAppBtn');
+        const statusMessage = document.getElementById('statusMessage');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const contentPreview = document.getElementById('contentPreview');
+        const contentTitle = document.getElementById('contentTitle');
+        const contentImam = document.getElementById('contentImam');
+        
+        // Variables globales
+        let deepLink = null;
+        let mediaData = null;
+        
+        // Fonction pour afficher un message de statut
+        function showStatus(message, type = 'info') {
+            statusMessage.textContent = message;
+            statusMessage.className = `status ${type}`;
+            statusMessage.style.display = 'block';
+        }
+        
+        // Fonction pour cacher le loading
+        function hideLoading() {
+            loadingSpinner.style.display = 'none';
+        }
+        
+        // Fonction pour décoder les données du média
+        function decodeMediaData(encodedData) {
+            try {
+                const jsonString = atob(encodedData.replace(/_/g, '/').replace(/-/g, '+'));
+                return JSON.parse(jsonString);
+            } catch (error) {
+                console.error('Erreur de décodage:', error);
+                return null;
+            }
+        }
+        
+        // Fonction pour afficher l'aperçu du contenu
+        function showContentPreview(data) {
+            if (data && data.title && data.imam) {
+                contentTitle.textContent = data.title;
+                contentImam.textContent = `Par ${data.imam}`;
+                contentPreview.style.display = 'block';
+            }
+        }
+        
+        // Fonction pour tenter d'ouvrir l'application
+        function attemptToOpenApp() {
+            if (!deepLink) {
+                showStatus('❌ Lien invalide', 'error');
+                hideLoading();
+                return;
+            }
+            
+            showStatus('🔄 Tentative d\'ouverture de l\'application...', 'info');
+            
+            // Créer un iframe invisible pour tenter l'ouverture
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = deepLink;
+            document.body.appendChild(iframe);
+            
+            // Essayer aussi avec window.location pour les navigateurs qui le supportent
+            setTimeout(() => {
+                try {
+                    window.location.href = deepLink;
+                } catch (error) {
+                    console.log('Méthode window.location échouée:', error);
+                }
+            }, 100);
+            
+            // Nettoyage de l'iframe
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+            }, 1000);
+            
+            // Vérification après 3 secondes
+            setTimeout(() => {
+                showStatus('⚠️ Application non détectée. Veuillez la télécharger d\'abord.', 'warning');
+                hideLoading();
+            }, 3000);
+        }
+        
+        // Fonction pour detecter si l'app s'est ouverte
+        let appOpened = false;
+        function detectAppOpening() {
+            const startTime = Date.now();
+            
+            // Si la page devient invisible rapidement, l'app s'est probablement ouverte
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden && Date.now() - startTime < 2000) {
+                    appOpened = true;
+                    showStatus('✅ Application ouverte avec succès !', 'success');
+                    hideLoading();
+                }
+            });
+            
+            // Vérifier aussi avec focus/blur
+            window.addEventListener('blur', () => {
+                if (Date.now() - startTime < 2000) {
+                    appOpened = true;
+                    showStatus('✅ Application ouverte avec succès !', 'success');
+                    hideLoading();
+                }
+            });
+        }
+        
+        // Initialisation au chargement de la page
+        function initialize() {
+            // Récupérer les paramètres URL
+            const urlParams = new URLSearchParams(window.location.search);
+            deepLink = urlParams.get('deep_link');
+            const fallbackUrl = urlParams.get('fallback') || PLAY_STORE_URL;
+            
+            if (!deepLink) {
+                showStatus('❌ Paramètres manquants dans l\'URL', 'error');
+                hideLoading();
+                return;
+            }
+            
+            // Décoder et afficher les données du média si possible
+            const deepLinkUrl = new URL(deepLink);
+            const encodedData = deepLinkUrl.searchParams.get('data');
+            if (encodedData) {
+                mediaData = decodeMediaData(encodedData);
+                if (mediaData) {
+                    showContentPreview(mediaData);
+                }
+            }
+            
+            // Préparer la détection d'ouverture d'app
+            detectAppOpening();
+            
+            // Tentative automatique d'ouverture après un court délai
+            setTimeout(() => {
+                if (!appOpened) {
+                    attemptToOpenApp();
+                }
+            }, 500);
+        }
+        
+        // Event listeners
+        openAppBtn.addEventListener('click', () => {
+            loadingSpinner.style.display = 'inline-block';
+            detectAppOpening();
+            attemptToOpenApp();
+        });
+        
+        // Initialiser quand la page est chargée
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initialize);
+        } else {
+            initialize();
+        }
+        
+        // Gestion des erreurs globales
+        window.addEventListener('error', (event) => {
+            console.error('Erreur globale:', event.error);
+            showStatus('❌ Une erreur est survenue', 'error');
+            hideLoading();
+        });
+    </script>
+</body>
+</html>
